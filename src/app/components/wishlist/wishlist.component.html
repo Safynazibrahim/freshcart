@@ -1,0 +1,31 @@
+<section class="mt-5 p-4" *ngIf="productData; else msg">
+    <h1>Wish List</h1>
+    <div class="row g-4">
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let item of productData">
+            <div class="cardStyle p-2 h-100 borderStyle">
+                <i *ngIf="!wishListData.includes(item._id)" (click)="addFav(item._id)" role="button" class="fa-solid fa-heart heart text-dark"></i>
+                <i *ngIf="wishListData.includes(item._id)" (click)="removeFav(item._id)" role="button" class="fa-solid fa-heart heart text-danger"></i>
+
+
+                <div role="button" [routerLink]="['/details' , item._id]">
+                <img [src]="item.imageCover" alt="" class="w-100">
+                <div class="productDetails m-2">
+                    <h4 class="text-main h6">{{item.category.name}}</h4>
+                    <h3 class="h6">{{item.title | cuttext}}</h3>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <span>{{item.price | currency:' EGP'}}</span>
+                        <span><i class="fas fa-star rating-color"></i> {{item.ratingsAverage}}</span>
+                    </div>
+                </div>
+                </div>
+                <div>
+                <button class="main-btn w-100 py-2" (click)="addProduct(item._id)" >+ Add To Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #msg>
+    <h2 class="text-center py-5 mt-5">Your WishList Is Empty...</h2>
+</ng-template>
